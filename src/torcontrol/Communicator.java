@@ -133,24 +133,28 @@ public class Communicator {
 		// switch return codes based on sent command
 		switch (code) {
 			case ResponseCodes.OK:
-				if (command == ControlPortCommands.AUTHENTICATE) {
-					return "SUCCESS";
-				}
-				if (command == ControlPortCommands.GETINFO_VERSION) {
-					int indexStart = msg.indexOf("version=") + "version=".length();
-					int indexEnd = msg.indexOf(" ");
+				switch (command) {
+					case AUTHENTICATE: return "SUCCESS";
+					case GETINFO_VERSION:
+						int indexStart = msg.indexOf("version=") + "version=".length();
+						int indexEnd = msg.indexOf(" ");
+						
+						return msg.substring(indexStart, indexEnd);
 					
-					return msg.substring(indexStart, indexEnd);
+					case GETINFO_CONFIG_FILE:
+						indexStart = msg.indexOf("-config-file=") + "-config-file=".length();
+						return msg.substring(indexStart);
+					
+					case GETINFO_CONFIG_DEFAULTS_FILE:
+						indexStart = msg.indexOf("-config-defaults-file=") + "-config-defaults-file=".length();
+						return msg.substring(indexStart);
+					
+					case GETINFO_CONFIG_TEXT:
+						indexStart = msg.indexOf("+config-text=") + "+config-text=".length();
+						return msg.substring(indexStart);
+					
+					default: return "";
 				}
-				if (command == GETINFO_CONFIG_FILE) {
-					int indexStart = msg.indexOf("-config-file=") + "-config-file=".length();
-					return msg.substring(indexStart);
-				}
-				if (command == GETINFO_CONFIG_DEFAULTS_FILE) {
-					int indexStart = msg.indexOf("-config-defaults-file=") + "-config-defaults-file=".length();
-					return msg.substring(indexStart);
-				}
-				return "";
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
 				System.err.println("Server needs authentication!");
 			case ResponseCodes.BAD_AUTHENTICATION:
