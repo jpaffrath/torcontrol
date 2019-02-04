@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import static torcontrol.ControlPortCommands.*;
 
@@ -74,17 +76,31 @@ public class Communicator {
 		this.streamPrint.println(cmd);
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(this.streamIn));
-		StringBuffer bufferAnswer = new StringBuffer();
+		List<String> outList = new ArrayList<>();
         
         try {
-        	bufferAnswer.append(reader.readLine());
+        	do {
+        		outList.add(reader.readLine());
+        	} while (reader.ready());
 		}
         catch (IOException e) {
         	System.err.println("Send command failed!");
 			return null;
 		}
+        
+        // Tor's control protocol appends status code at end if response contains information.
+        // We can trim that because ever response contains the same status code at the beginning.
+        if (outList.size() > 1) {
+        	outList.remove(outList.size()-1);
+        }
+        
+        StringBuffer buf = new StringBuffer();
+        for (String element : outList) {
+        	buf.append(element);
+        }
 		
-		return bufferAnswer.toString();
+        //System.out.println("DEBUG: [" + cmd + "] " + buf.toString());
+		return buf.toString();
 	}
 	
 	/**
@@ -141,11 +157,11 @@ public class Communicator {
 				System.err.println("Authentication failed!");
 				return "FAILURE";
 			case ResponseCodes.UNRECOGNIZED_ENTITY:
-				if (command == ControlPortCommands.SIGNAL_RELOAD) {
+				if (command == SIGNAL_RELOAD) {
 					System.err.println("Send Signal Reload failed");
 					return "";
 				}
-				if (command == ControlPortCommands.SIGNAL_DUMP) {
+				if (command == SIGNAL_DUMP) {
 					System.err.println("Send Signal Dump failed");
 					return "";
 				}
@@ -199,6 +215,10 @@ public class Communicator {
 	
 	public String getInfoConfigDefaultsFile() {
 		return this.parseResponse(this.send(GETINFO_CONFIG_DEFAULTS_FILE), GETINFO_CONFIG_DEFAULTS_FILE);
+	}
+	
+	public String getInfoConfigText() {
+		return this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
 	}
 	
 	/**
