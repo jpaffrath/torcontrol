@@ -199,6 +199,12 @@ public class Communicator {
 	}
 	
 	/**
+	 * Immediate shutdown: clean up and exit now
+	 */
+	public void sendSignalHalt() {
+		this.parseResponse(this.send(SIGNAL_HALT), SIGNAL_HALT);
+	}
+	/**
 	 * Tells the server to hang up on this controller connection
 	 * 
 	 * This command can be used before authenticating
