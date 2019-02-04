@@ -210,6 +210,13 @@ public class Communicator {
 	}
 	
 	/**
+	 * Debug: switch all open logs to loglevel debug
+	 */
+	public void sendSignalDebug() {
+		this.parseResponse(this.send(SIGNAL_DEBUG), SIGNAL_DEBUG);
+	}
+	
+	/**
 	 * Immediate shutdown: clean up and exit now
 	 */
 	public void sendSignalHalt() {
