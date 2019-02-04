@@ -94,12 +94,17 @@ public class Communicator {
         	outList.remove(outList.size()-1);
         }
         
+        // if response consist only of one line, return it instantly
+        if (outList.size() == 1) {
+        	return outList.get(0);
+        }
+        
+        // add newline at end of each line so we can trim it later easier to a list
         StringBuffer buf = new StringBuffer();
         for (String element : outList) {
-        	buf.append(element);
+        	buf.append(element + '\n');
         }
 		
-        //System.out.println("DEBUG: [" + cmd + "] " + buf.toString());
 		return buf.toString();
 	}
 	
