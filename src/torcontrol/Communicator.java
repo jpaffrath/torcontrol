@@ -131,6 +131,11 @@ public class Communicator {
 			case ResponseCodes.BAD_AUTHENTICATION:
 				System.err.println("Authentication failed!");
 				return "FAILURE";
+			case ResponseCodes.UNRECOGNIZED_ENTITY:
+				if (command == ControlPortCommands.SIGNAL_RELOAD) {
+					System.err.println("Send Signal Reload failed");
+					return "";
+				}
 			default:
 				System.err.println("Code not implemented: " + code);
 				return "";
@@ -173,6 +178,13 @@ public class Communicator {
 	 */
 	public String getVersion() {
 		return this.parseResponse(this.send(GETINFO_VERSION), GETINFO_VERSION);
+	}
+	
+	/**
+	 * Reload: reload config items
+	 */
+	public void sendSignalReload() {
+		this.parseResponse(this.send(SIGNAL_RELOAD), SIGNAL_RELOAD);
 	}
 	
 	/**
