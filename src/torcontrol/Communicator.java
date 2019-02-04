@@ -126,6 +126,10 @@ public class Communicator {
 					
 					return msg.substring(indexStart, indexEnd);
 				}
+				if (command == ControlPortCommands.GETINFO_CONFIG_FILE) {
+					int indexStart = msg.indexOf("-config-file=") + "-config-file=".length();
+					return msg.substring(indexStart);
+				}
 				return "";
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
 				System.err.println("Server needs authentication!");
@@ -183,6 +187,10 @@ public class Communicator {
 	 */
 	public String getVersion() {
 		return this.parseResponse(this.send(GETINFO_VERSION), GETINFO_VERSION);
+	}
+	
+	public String getInfoConfigFile() {
+		return this.parseResponse(this.send(GETINFO_CONFIG_FILE), GETINFO_CONFIG_FILE);
 	}
 	
 	/**
