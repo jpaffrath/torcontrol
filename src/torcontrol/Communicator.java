@@ -126,6 +126,7 @@ public class Communicator {
 					
 					return msg.substring(indexStart, indexEnd);
 				}
+				return "";
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
 				System.err.println("Server needs authentication!");
 			case ResponseCodes.BAD_AUTHENTICATION:
