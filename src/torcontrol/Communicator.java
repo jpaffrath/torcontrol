@@ -158,6 +158,10 @@ public class Communicator {
 						indexStart = msg.indexOf("+config-text=") + "+config-text=".length();
 						return msg.substring(indexStart);
 					
+					case GETINFO_EXIT_POLICY_DEFAULT:
+						indexStart = msg.indexOf("-exit-policy/default") + "-exit-policy/default".length();
+						return msg.substring(indexStart);
+					
 					default: return "";
 				}
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
@@ -272,6 +276,15 @@ public class Communicator {
 		String response = this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
 		return this.parseList(response, "\n");
 	}
+	
+	/**
+	 * The default exit policy lines that Tor will *append* to the ExitPolicy config option
+	 * 
+	 * @return
+	 */
+	public List<String> getInfoExitPolicyDefault() {
+		String response = this.parseResponse(this.send(GETINFO_EXIT_POLICY_DEFAULT), GETINFO_EXIT_POLICY_DEFAULT);
+		return this.parseList(response, ",");
 	}
 	
 	/**
