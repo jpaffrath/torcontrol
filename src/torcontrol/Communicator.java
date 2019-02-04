@@ -181,6 +181,25 @@ public class Communicator {
 	}
 	
 	/**
+	 * Parse a multi line response to a list
+	 * 
+	 * @param response multi line response
+	 * @return list containint the splitted response
+	 */
+	private List<String> parseList(String response) {
+		List<String> list = new ArrayList<>();
+		for (String line : response.split("\n")) {
+			list.add(line);
+		}
+		
+		// Remove first and last element because they contain no relevant information
+		list.remove(0);
+		list.remove(list.size()-1);
+		
+		return list;
+	}
+	
+	/**
 	 * Closes the socket connection
 	 */
 	private void close() {
