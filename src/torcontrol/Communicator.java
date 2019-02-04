@@ -268,8 +268,10 @@ public class Communicator {
 	 * 
 	 * @return Tor's configuration
 	 */
-	public String getInfoConfigText() {
-		return this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
+	public List<String> getInfoConfigText() {
+		String response = this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
+		return this.parseList(response);
+	}
 	}
 	
 	/**
