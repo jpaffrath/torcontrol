@@ -129,6 +129,7 @@ public class Communicator {
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
 				System.err.println("Server needs authentication!");
 			case ResponseCodes.BAD_AUTHENTICATION:
+				System.err.println("Authentication failed!");
 				return "FAILURE";
 			default:
 				System.err.println("Code not implemented: " + code);
