@@ -213,14 +213,37 @@ public class Communicator {
 		return this.parseResponse(this.send(GETINFO_VERSION), GETINFO_VERSION);
 	}
 	
+	/**
+	 * The location of Tor's configuration file ("torrc")
+	 * 
+	 * @return location of configuration file
+	 */
 	public String getInfoConfigFile() {
 		return this.parseResponse(this.send(GETINFO_CONFIG_FILE), GETINFO_CONFIG_FILE);
 	}
 	
+	/**
+	 * The location of Tor's configuration defaults file ("torrc.defaults")
+	 * 
+	 * This file gets parsed before torrc, and is typically used to replace
+	 * Tor's default configuration values.
+	 * 
+	 * First implemented in 0.2.3.9-alpha.
+	 * 
+	 * @return location of configuration file
+	 */
 	public String getInfoConfigDefaultsFile() {
 		return this.parseResponse(this.send(GETINFO_CONFIG_DEFAULTS_FILE), GETINFO_CONFIG_DEFAULTS_FILE);
 	}
 	
+	/**
+	 * The contents that Tor would write if you send it a SAVECONF command,
+	 * so the controller can write the file to disk itself
+	 * 
+	 * First implemented in 0.2.2.7-alpha.
+	 * 
+	 * @return Tor's configuration
+	 */
 	public String getInfoConfigText() {
 		return this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
 	}
