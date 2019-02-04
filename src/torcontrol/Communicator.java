@@ -186,9 +186,9 @@ public class Communicator {
 	 * @param response multi line response
 	 * @return list containint the splitted response
 	 */
-	private List<String> parseList(String response) {
+	private List<String> parseList(String response, String splitter) {
 		List<String> list = new ArrayList<>();
-		for (String line : response.split("\n")) {
+		for (String line : response.split(splitter)) {
 			list.add(line);
 		}
 		
@@ -270,7 +270,7 @@ public class Communicator {
 	 */
 	public List<String> getInfoConfigText() {
 		String response = this.parseResponse(this.send(GETINFO_CONFIG_TEXT), GETINFO_CONFIG_TEXT);
-		return this.parseList(response);
+		return this.parseList(response, "\n");
 	}
 	}
 	
