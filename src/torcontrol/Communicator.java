@@ -136,6 +136,10 @@ public class Communicator {
 					System.err.println("Send Signal Reload failed");
 					return "";
 				}
+				if (command == ControlPortCommands.SIGNAL_DUMP) {
+					System.err.println("Send Signal Dump failed");
+					return "";
+				}
 			default:
 				System.err.println("Code not implemented: " + code);
 				return "";
@@ -185,6 +189,13 @@ public class Communicator {
 	 */
 	public void sendSignalReload() {
 		this.parseResponse(this.send(SIGNAL_RELOAD), SIGNAL_RELOAD);
+	}
+	
+	/**
+	 * Dump stats: log information about open connections and circuits
+	 */
+	public void sendSignalDump() {
+		this.parseResponse(this.send(SIGNAL_DUMP), SIGNAL_DUMP);
 	}
 	
 	/**
