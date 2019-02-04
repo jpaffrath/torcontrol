@@ -215,6 +215,17 @@ public class Communicator {
 		this.parseResponse(this.send(SIGNAL_HALT), SIGNAL_HALT);
 	}
 	/**
+	 * Switch to clean circuits, so new application requests
+	 * don't share any circuits with old ones.
+	 * 
+	 * Also clears the client-side DNS cache.
+	 * (Tor MAY rate-limit its response to this signal.)
+	 */
+	public void sendSignalNewNYM() {
+		this.parseResponse(this.send(SIGNAL_NEWNYM), SIGNAL_NEWNYM);
+	}
+	
+	/**
 	 * Tells the server to hang up on this controller connection
 	 * 
 	 * This command can be used before authenticating
