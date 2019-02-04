@@ -192,6 +192,16 @@ public class Communicator {
 	}
 	
 	/**
+	 * Controlled shutdown: if server is an OP, exit immediately
+	 * 
+	 * If it's an OR, close listeners and exit after
+	 * ShutdownWaitLength seconds.
+	 */
+	public void sendSignalShutdown() {
+		this.parseResponse(this.send(SIGNAL_SHUTDOWN), SIGNAL_SHUTDOWN);
+	}
+	
+	/**
 	 * Dump stats: log information about open connections and circuits
 	 */
 	public void sendSignalDump() {
