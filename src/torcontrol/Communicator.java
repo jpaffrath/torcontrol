@@ -126,8 +126,12 @@ public class Communicator {
 					
 					return msg.substring(indexStart, indexEnd);
 				}
-				if (command == ControlPortCommands.GETINFO_CONFIG_FILE) {
+				if (command == GETINFO_CONFIG_FILE) {
 					int indexStart = msg.indexOf("-config-file=") + "-config-file=".length();
+					return msg.substring(indexStart);
+				}
+				if (command == GETINFO_CONFIG_DEFAULTS_FILE) {
+					int indexStart = msg.indexOf("-config-defaults-file=") + "-config-defaults-file=".length();
 					return msg.substring(indexStart);
 				}
 				return "";
@@ -191,6 +195,10 @@ public class Communicator {
 	
 	public String getInfoConfigFile() {
 		return this.parseResponse(this.send(GETINFO_CONFIG_FILE), GETINFO_CONFIG_FILE);
+	}
+	
+	public String getInfoConfigDefaultsFile() {
+		return this.parseResponse(this.send(GETINFO_CONFIG_DEFAULTS_FILE), GETINFO_CONFIG_DEFAULTS_FILE);
 	}
 	
 	/**
