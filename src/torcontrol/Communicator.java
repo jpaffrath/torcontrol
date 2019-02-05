@@ -164,22 +164,57 @@ public class Communicator {
 					
 					default: return "";
 				}
+			
+			case ResponseCodes.OPERATION_UNNECESSARY:
+				System.err.println("Operation unnecessary");
+				return "";
+			case ResponseCodes.RESOURCE_EXHAUSTED:
+				System.err.println("Resource exhausted");
+				return "";
+			case ResponseCodes.SYNTAX_ERROR_PROTOCOL:
+				System.err.println("Syntax error protocol");
+				return "";
+			case ResponseCodes.UNRECOGNIZED_COMMAND:
+				System.err.println("Unrecognized command");
+				return "";
+			case ResponseCodes.UNIMPLEMENTED_COMMAND:
+				System.err.println("Unimplemented command");
+				return "";
+			case ResponseCodes.SYNTAX_ERROR_COMMAND_ARGUMENT:
+				System.err.println("Syntax Error command argument");
+				return "";
+			case ResponseCodes.UNRECOGNIZED_COMMAND_ARGUMENT:
+				System.err.println("Unrecognized command argument");
+				return "";
 			case ResponseCodes.AUTHENTICATION_REQUIRED:
-				System.err.println("Server needs authentication!");
+				System.err.println("Authentication required");
+				return "";
 			case ResponseCodes.BAD_AUTHENTICATION:
-				System.err.println("Authentication failed!");
-				return "FAILURE";
+				System.err.println("Bad authentication");
+				return "";
+			case ResponseCodes.UNSPECIFIED_TOR_ERROR:
+				System.err.println("Unspecified tor error");
+				return "";
+			case ResponseCodes.INTERNAL_ERROR:
+				System.err.println("Internal error");
+				return "";
 			case ResponseCodes.UNRECOGNIZED_ENTITY:
-				if (command == SIGNAL_RELOAD) {
-					System.err.println("Send Signal Reload failed");
-					return "";
-				}
-				if (command == SIGNAL_DUMP) {
-					System.err.println("Send Signal Dump failed");
-					return "";
-				}
+				System.err.println("Unrecognized entity");
+				return "";
+			case ResponseCodes.INVALID_CONFIGURATION_VALUE:
+				System.err.println("Invalid configuration value");
+				return "";
+			case ResponseCodes.INVALID_DESCRIPTOR:
+				System.err.println("Invalid descriptor");
+				return "";
+			case ResponseCodes.UNMANAGED_ENTITY:
+				System.err.println("Unmanaged entity");
+				return "";
+			case ResponseCodes.ASYNCHRONOUS_EVENT_NOTIFICATION:
+				System.err.println("Asynchronous event notification");
+				return "";
 			default:
-				System.err.println("Code not implemented: " + code);
+				System.err.println("Response code not implemented: " + code);
 				return "";
 		}
 	}
