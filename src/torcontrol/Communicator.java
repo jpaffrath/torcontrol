@@ -359,6 +359,14 @@ public class Communicator {
 	public void sendSignalHalt() {
 		this.parseResponse(this.send(SIGNAL_HALT), SIGNAL_HALT);
 	}
+	
+	/**
+	 * Forget the client-side cached IPs for all hostnames
+	 */
+	public void sendSignalClearDNSCache() {
+		this.parseResponse(this.send(SIGNAL_CLEARDNSCACHE), SIGNAL_CLEARDNSCACHE);
+	}
+	
 	/**
 	 * Switch to clean circuits, so new application requests
 	 * don't share any circuits with old ones.
