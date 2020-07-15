@@ -379,6 +379,35 @@ public class Communicator {
 	}
 	
 	/**
+	 * Make Tor dump an unscheduled Heartbeat message to log
+	 */
+	public void sendSignalHeartbeat() {
+		this.parseResponse(this.send(SIGNAL_HEARTBEAT), SIGNAL_HEARTBEAT);
+	}
+	
+	/**
+	 * Tell Tor to become "dormant".
+	 * 
+	 * A dormant Tor will try to avoid CPU and network usage
+	 * until it receives user-initiated network request.
+	 * (Don't use this on relays or hidden services yet!)
+	 * 
+	 * Added in 0.4.0.1-alpha
+	 */
+	public void sendSignalDormant() {
+		this.parseResponse(this.send(SIGNAL_DORMANT), SIGNAL_DORMANT);
+	}
+	
+	/**
+	 * Tell Tor to stop being "dormant", as if it had received a user-initiated network request
+	 * 
+	 * Added in 0.4.0.1-alpha
+	 */
+	public void sendSignalActive() {
+		this.parseResponse(this.send(SIGNAL_ACTIVE), SIGNAL_ACTIVE);
+	}
+	
+	/**
 	 * Tells the server to hang up on this controller connection
 	 * 
 	 * This command can be used before authenticating
