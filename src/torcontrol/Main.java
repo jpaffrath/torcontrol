@@ -28,6 +28,8 @@ public class Main {
 		String version = communicator.getVersion();
 		System.out.println("Tor Server Version: " + version);
 		
+		communicator.sendSignalDormant();
+		
 		communicator.quit();
 	}
 }
